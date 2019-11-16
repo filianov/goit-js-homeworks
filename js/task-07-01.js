@@ -34,32 +34,17 @@ const ingredients = [
 
 const ingredientsContainer = document.querySelector('#ingredients');
 
-const ingregient = createListOfIngregients(ingredients);
+const listOfIngregients = createListOfIngregients(ingredients);
 
-ingredientsContainer.appendChild(ingregient);
+ingredientsContainer.appendChild(listOfIngregients);
 
 function createListOfIngregients() {
     const ingregientList = document.createElement('ul');
-    const ingregient1 = document.createElement('li');
-    ingregient1.textContent = ingredients[0];
-    const ingregient2 = document.createElement('li');
-    ingregient2.textContent = ingredients[1];
-    const ingregient3 = document.createElement('li');
-    ingregient3.textContent = ingredients[2];
-    const ingregient4 = document.createElement('li');
-    ingregient4.textContent = ingredients[3];
-    const ingregient5 = document.createElement('li');
-    ingregient5.textContent = ingredients[4];
-    const ingregient6 = document.createElement('li');
-    ingregient6.textContent = ingredients[5];
-    ingregientList.append(
-        ingregient1,
-        ingregient2,
-        ingregient3,
-        ingregient4,
-        ingregient5,
-        ingregient6,
-    );
+    ingredients.map((ingredient, i) => {
+        ingredient = document.createElement('li');
+        ingredient.textContent = ingredients[i];
+        ingregientList.append(ingredient);
+    });
     return ingregientList;
 }
 // Task3
@@ -139,12 +124,13 @@ input6Value.addEventListener('blur', valitateIntut);
 function valitateIntut(event) {
     if (
         event &&
-        input6Value.value.length === Number(input6Value.dataset.length)
+        input6Value.value.length !== Number(input6Value.dataset.length)
     ) {
-        return input6Value.classList.add('valid');
-    }
-    return input6Value.classList.add('invalid');
+        return input6Value.classList.add('invalid');
+    } else input6Value.classList.remove('invalid');
+    return input6Value.classList.add('valid');
 }
+
 // Task7
 
 const scroll = document.querySelector('#font-size-control');
