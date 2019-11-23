@@ -11,6 +11,8 @@ const closeButton = document.querySelector(
     '.js-lightbox button[data-action="close-lightbox"]',
 );
 
+const closeOverlay = document.querySelector('.js-lightbox__overlay');
+
 const marcup = renderingMarkup(images);
 
 function renderingMarkup(array) {
@@ -41,6 +43,8 @@ function renderingMarkup(array) {
 gallery.insertAdjacentHTML('afterbegin', marcup);
 
 gallery.addEventListener('click', handleOpenGalleryClick);
+closeButton.addEventListener('click', handleCloseButton);
+lightbox.addEventListener('click', handleCloseOverlay);
 
 function handleOpenGalleryClick(event) {
     event.preventDefault();
@@ -50,11 +54,25 @@ function handleOpenGalleryClick(event) {
     lightbox.classList.add('is-open');
     lightboxImage.setAttribute('src', bigImgSrc);
     lightboxImage.setAttribute('alt', bigImgAlt);
+    window.addEventListener('keydown', handleKeyPress);
 }
-
-closeButton.addEventListener('click', handleCloseButton);
 
 function handleCloseButton() {
     lightbox.classList.remove('is-open');
     lightboxImage.removeAttribute('src');
+    window.removeEventListener('keydown', handleKeyPress);
+}
+
+function handleCloseOverlay() {
+    if (event.target === lightboxImage) {
+        return;
+    }
+    handleCloseButton();
+}
+
+function handleKeyPress(event) {
+    if (event.code !== 'Escape') {
+        return;
+    }
+    handleCloseButton();
 }
