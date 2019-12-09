@@ -28,7 +28,7 @@ module.exports = env => ({
     publicPath: '',
     historyApiFallback: true,
     compress: true,
-    port: 4080,
+    port: 8040,
     noInfo: true,
     quiet: true,
     clientLogLevel: 'warning',

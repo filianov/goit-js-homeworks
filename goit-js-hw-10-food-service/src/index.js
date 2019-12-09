@@ -4,6 +4,8 @@ import './styles.css';
 
 const refs = {
   menu: document.querySelector('.js-menu'),
+  switchInput: document.querySelector('.js-switch-input'),
+  body: document.body,
 };
 
 buildMenuItem(menuItems);
@@ -13,46 +15,23 @@ function buildMenuItem(menuItems) {
   refs.menu.insertAdjacentHTML('beforeend', markup);
 }
 
-const body = document.querySelector('body');
-
-const switchSelector = document.querySelector('.js-switch-input');
-
-const savedTheme = localStorage.getItem('theme');
-
-switchSelector.addEventListener('change', changeTheme);
-
-switchSelector.addEventListener('change', saveThemeToLocalStorage);
-
-applyThemeFromLocalStorage();
-
-function changeTheme(event) {
-  if (body.classList.contains('dark-theme')) {
-    body.classList.replace('dark-theme', 'light-theme');
-  } else if (body.classList.contains('light-theme')) {
-    body.classList.replace('light-theme', 'dark-theme');
-  } else body.classList.add('dark-theme');
+const currentTheme = localStorage.getItem('theme');
+refs.body.classList.add(currentTheme || 'light-theme');
+if (currentTheme === 'dark-theme') {
+  refs.switchInput.checked = true;
 }
 
-function saveThemeToLocalStorage(event) {
-  const currentTheme = event.path[4].classList.value;
-  const savedTheme = localStorage.setItem('theme', currentTheme);
-}
-
-function applyThemeFromLocalStorage() {
-  if (savedTheme === 'dark-theme') {
-    body.classList.add('dark-theme');
-    switchSelector.checked = true;
+function setBackgroundColor(e) {
+  e.preventDefault();
+  let current = '';
+  if (refs.body.classList.contains('light-theme')) {
+    refs.body.classList.replace('light-theme', 'dark-theme');
+    current = 'dark-theme';
+  } else {
+    refs.body.classList.replace('dark-theme', 'light-theme');
+    current = 'light-theme';
   }
-  body.classList.add('light-theme');
+  localStorage.setItem('theme', current);
 }
 
-// const Theme = {
-//   LIGHT: 'light-theme',
-//   DARK: 'dark-theme',
-// };
-
-// localStorage.setItem('Theme', JSON.stringify(Theme));
-
-// const persistedTheme = localStorage.getItem('Theme');
-// const parsedTheme = JSON.parse(persistedTheme);
-// console.log(parsedTheme);
+refs.switchInput.addEventListener('change', setBackgroundColor);
