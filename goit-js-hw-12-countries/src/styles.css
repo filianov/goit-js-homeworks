@@ -1,0 +1,50 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: block;
+}
+
+.input {
+  margin-top: 50px;
+  margin-left: 20px;
+  width: 50%;
+  display: block;
+  text-align: center;
+  font-size: 35px;
+}
+
+.list {
+  display: block;
+  list-style-type: none;
+  margin-left: 20px;
+  padding: 10px 10px;
+  list-style-type: square;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 25px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100vh;
+  height: 100vh;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin-left: 20px;
+  margin-right: 10px;
+  padding: 10px 20px;
+  list-style-type: square;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
